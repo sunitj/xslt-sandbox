@@ -12,12 +12,28 @@ Example:
     xsltproc -\-novalid blast2tsv.xsl blast.xml
 
 -->
+
+<!--
+Minor Edits
+     Sunit Jain
+Mail:
+     sunitj [AT] umich [DOT] edu
+Motivation:
+    http://biostar.stackexchange.com/questions/7313
+    transforms a blast xml result to TSV.
+    I figured, a TSV file would need tabs!
+Acknowledgement:
+    Thanks for most of the work Pierre!
+-->
+ 
 <!-- ========================================================================= -->
   <xsl:output method="text"/>
   <xsl:template match="/">
     <xsl:apply-templates select="BlastOutput"/>
   </xsl:template>
   <xsl:template match="BlastOutput">
+    <xsl:variable name="n" select="'&#13;'"/>
+    <xsl:variable name="t" select="'&#9;'"/>
     <xsl:variable name="queryDef" select="BlastOutput_query-def"/>
     <xsl:variable name="queryLen" select="BlastOutput_query-len"/>
     <xsl:for-each select="BlastOutput_iterations/Iteration/Iteration_hits/Hit">
@@ -25,44 +41,43 @@ Example:
       <xsl:variable name="hitLen" select="Hit-len"/>
       <xsl:for-each select="Hit_hsps/Hsp">
         <xsl:value-of select="$queryDef"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="$queryLen"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="$hitDef"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="$hitLen"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="Hsp_bit-score"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="Hsp_evalue"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="Hsp_query-from"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="Hsp_query-to"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="Hsp_hit-from"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="Hsp_hit-to"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="Hsp_query-frame"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="Hsp_hit-frame"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="Hsp_identity"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="Hsp_positive"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="Hsp_gaps"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="Hsp_align-len"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="Hsp_qseq"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="Hsp_hseq"/>
-        <xsl:text>  </xsl:text>
+        <xsl:value-of select="$t"/>
         <xsl:value-of select="Hsp_midline"/>
-        <xsl:text>
-</xsl:text>
+        <xsl:value-of select="$n"/>
       </xsl:for-each>
     </xsl:for-each>
   </xsl:template>
